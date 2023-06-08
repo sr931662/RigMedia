@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css">
+  <title>
+    Rig media Scrapping tool
+  </title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+  *{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  body{
+    min-height: 100vh;
+    background: linear-gradient(#2b1055, #7597de);
+
+    background: url("https://wallpapercrafter.com/desktop/12235-mountains-moon-forest-night-starry-sky-vector-flat-4k.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .logo {
+    color: #fff;
+    font-weight: 700;
+    margin-right: 50px;
+    text-decoration: none;
+    font-size: 2em;
+<!--    text-transform: uppercase;-->
+    letter-spacing: 2px;
+  }
+  header ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  header ul li {
+    list-style: none;
+    margin-left: 20px;
+  }
+  header ul li a {
+    text-decoration: none;
+    padding: 6px 15px;
+    color: #fff;
+    border-radius: 20px;
+  }
+  header ul li a:hover ,
+  header ul li a.active
+  {
+    background: #fff;
+    color: #2b1055;
+  }
+
+  .tags ul {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    list-style: none;
+    justify-content: center;
+/*    right: 20%;*/
+    bottom: 30%;
+  }
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 5%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-bar {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 10px;
+  }
+  .search-bar input {
+    background: transparent;
+    border: transparent;
+    flex: 1;
+    border: 0;
+    outline: 24px 20px;
+    font-size: 20px;
+    color: #cac7ff;
+  }
+  ::placeholder {
+    color: #cac7ff;
+  }
+  .search-bar button {
+    border: 0;
+    border-radius: 50px;
+    width: 150px;
+    height: 60px;
+    background: #58629b;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  .container2 {
+    gap: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+    width: 100%;
+  }
+  .disp {
+    padding: 30px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: white;
+    background: transparent;
+    border-color: transparent;
+  }
+  .disp:hover
+  {
+    background: #fff;
+    color: black;
+    border-color: transparent;
+    cursor: pointer;
+  }
+  .card {
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    position: relative;
+    width: 30%;
+    height: 30vh;
+    transition: 0.5s;
+    padding: 10px 10px -10px -10px;
+    align-items: center;
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
+  }
+  .card:hover{
+    height: 40vh;
+    width: 60vh;
+  }
+  .card .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .card .content .details {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    transition: 0.5s;
+    overflow: hidden;
+  }
+  .card .content .details h3 {
+    font-size: 0.8em;
+    text-align: justify;
+    font-weight: 600;
+    color: #555;
+    line-height: 1.2em;
+  }
+  .card .content .details .data {
+    display: flex;
+    justify-content: space-between;
+    margin: 1vh 0;
+    gap:1vh;
+  }
+  .card .content .details .data p {
+    font-size: 0.85em;
+    font-weight: 500;
+    opacity: 0.5;
+  }
+  .card .content .details .actionBtn {
+    display: flex;
+    justify-content: space-between;
+  }
+  .card .content .details .actionBtn button {
+    padding: 10px 30px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: mediumslateblue;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+  }
+  .card .content .details .actionBtn button:nth-child(2) {
+    border: 1px solid #999;
+    color: #999;
+    background: #fff;
+  }
+  .card a{
+    color: black;
+    text-decoration: none;
+  }
+  .row {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+  @media(max-width: 768px){
+    .row{
+      width: 100%;
+    }
+  }
+  @media(max-width: 468px){
+    .card {
+      width: 290px;
+      height: 250px;
+    }
+  }
+</style>
+<body>
+  <header>
+    <a href="#" class="logo"><span style="color: lightgreen;">Rig-Media</span> <span style="color: skyblue;">360°</span></a>
+    <ul>
+      <li><a href="#" class="active"><strong>Home</strong></a></li>
+      <li><a href="#"><strong>About</strong></a></li>
+      <li><a href="#"><strong>Work</strong></a></li>
+      <li><a href="#"><strong>Contact</strong></a></li>
+    </ul>
+  </header>
+
+  <div class="container">
+    <form class="search-bar" action="\runSpider" method="POST">
+      {% csrf_token %}
+      <input type="text" placeholder="Paste link here..." name="link">
+      <button type="submit">
+        Search</button>
+    </form>
+    <br>
+  </div>
+
+<p style="color: black;">{{ link }}</p>
+  <div class="tags">
+    <ul type="none">
+      <li><a href="reddit_data" style="text-decoration: none;">
+      <button type="button" class="disp" id="red_disp">
+        <strong>Reddit Post</strong>
+      </button></a>
+    </li>
+    <li>
+      <button onclick="\linkedin_data" class="disp" id="li_disp">
+        <strong>Linked-In Post</strong>
+      </button>
+    </li>
+    <li>
+      <button onclick="\youtube_data" class="disp" id="yt_disp">
+        <strong>Youtube Post</strong>
+      </button>
+    </li>
+    <li>
+      <button onclick="\twitter_data" class="disp" id="tw_disp">
+        <strong>Twitter Post</strong>
+      </button>
+    </li>
+  </ul>
+  </div>
+  <div class="container2">
+    <p>{{ link }}</p>
+    <div class="row">
+    {% for card in RedditPost %}
+      <div class="card">
+        <div class="content">
+          <div class="details">
+            <h2 style="color: #58629b;">{{ card.redditor }}</h2>
+            <h3><a href="{{ card.post_page_links }}">{{ card.post_headline }}</a></h3><br>
+            <hr>
+            <div class="data">
+              <p>{{ card.post_upload }}</p><br>
+              <p>{{ card.post_upvotes }}</p><br>
+              <p>{{ card.post_comments }}</p><br>
+              <p>{{ card.post_rewards }}</p><br>
+            </div>
+          </div>
+        </div>
+        <!-- Add any other fields you want to display -->
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+<!--  <table border="white" style="bottom: 10%; width: 100%;">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th>ID</th>-->
+<!--      <th>Post Upload</th>-->
+<!--      <th>Post Headline</th>-->
+<!--      <th>Post Upvotes</th>-->
+<!--      <th>Post Comments</th>-->
+<!--      <th>Post Rewards</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    {% for post in RedditPost %}-->
+<!--    <tr>-->
+<!--      <td>{{ post.id }}</td>-->
+<!--      <td>{{ post.post_upload }}</td>-->
+<!--      <td><a href="{{ post.post_page_links }}" style="color:white;">{{ post.post_headline }}</a></td>-->
+<!--      <td>{{ post.post_upvotes }}</td>-->
+<!--      <td>{{ post.post_comments }}</td>-->
+<!--      <td>{{ post.post_rewards }}</td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+
+<!--    </tbody>-->
+<!--  </table>-->
+<!--  <table border="white" style="bottom: 10%; width: 100%;">-->
+
+<!--    <thead>-->
+<!--      <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Post Upload</th>-->
+<!--        <th>Comment Upload</th>-->
+<!--        <th>Post Link</th>-->
+<!--        <th>Post Headline</th>-->
+<!--        <th>Post Upvotes</th>-->
+<!--        <th>Post Comments</th>-->
+<!--        <th>Post Rewards</th>-->
+<!--        <th>Comment Upvotes</th>-->
+<!--        <th>Comment Rewards</th>-->
+<!--        <th>Comment Body</th>-->
+<!--      </tr>-->
+<!--    </thead>-->
+<!--    <tbody id="data">-->
+<!--    {% for entry in datae %}-->
+<!--      <tr>-->
+<!--        <td>{{ entry.id }}</td>-->
+<!--        <td>{{ entry.pwc_upload }}</td>-->
+<!--        <td>{{ entry.cop_upload }}</td>-->
+<!--        <td>{{ entry.pwc_links }}</td>-->
+<!--        <td>{{ entry.pwc_headlines }}</td>-->
+<!--        <td>{{ entry.pwc_upvotes }}</td>-->
+<!--        <td>{{ entry.pwc_comments }}</td>-->
+<!--        <td>{{ entry.pwc_rewards }}</td>-->
+<!--        <td>{{ entry.cop_upvotes }}</td>-->
+<!--        <td>{{ entry.cop_rewards }}</td>-->
+<!--        <td>{{ entry.comment }}</td>-->
+<!--      </tr>-->
+<!--    {% endfor %}-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->
+
+<!--  <script type="text/javascript">-->
+<!--      function RedditData() {-->
+<!--      fetch("data.json")-->
+<!--        .then(function (response) {-->
+<!--          return response.json();-->
+<!--        })-->
+<!--        .then(function (data) {-->
+<!--          let placeholder = document.querySelector("#data");-->
+<!--          let out = "";-->
+<!--          for (let d of data) {-->
+<!--            out += `-->
+<!--              <tr>-->
+<!--                <td>${d.pwc_upload}</td>-->
+<!--                <td>${d.cop_upload}</td>-->
+<!--                <td><a href="${d.t_link}">${d.pwc_headline}</a></td>-->
+<!--                <td>${d.pwc_upvotes_count}</td>-->
+<!--                <td>${d.pwc_comments_count}</td>-->
+<!--                <td>${d.pwc_rewards_count}</td>-->
+<!--                <td>${d.cop_upvotes_count}</td>-->
+<!--                <td>${d.cop_rewards_count}</td>-->
+<!--                <td>${d.comment}</td>-->
+<!--              </tr>-->
+<!--            `;-->
+<!--          }-->
+<!--          placeholder.innerHTML = out;-->
+<!--        });-->
+<!--    }-->
+<!--  </script>-->
+
+
+</body>
+</html>
